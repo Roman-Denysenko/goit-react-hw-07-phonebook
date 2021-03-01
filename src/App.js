@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import s from './App.module.css';
+import { fetchContacts } from './redux/operations';
+import selectors from './redux/selectors';
 
 import ContactForm from './components/contactForm';
 import ContactList from './components/contactList';
 import Filter from './components/filter';
-import { fetchContacts } from './redux/operations';
-
 
 const App = ({ items, error }) => {
   fetchContacts();
@@ -40,8 +40,8 @@ App.propTypes = {
 
 
 const mapStateToProps = state => ({
-  items: state.contacts.items,
-  error:state.contacts.loading,
+  items: selectors.getContactsItems(state),
+  error:selectors.getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({

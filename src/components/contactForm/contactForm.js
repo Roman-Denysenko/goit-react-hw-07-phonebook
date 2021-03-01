@@ -4,7 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { CSSTransition } from 'react-transition-group';
 import Warning from '../warning';
 import { connect } from 'react-redux';
-import {addContact} from '../../redux/operations';
+import { addContact } from '../../redux/operations';
+import selectors from '../../redux/selectors';
 
 
 import s from './ContactForm.module.css';
@@ -106,7 +107,7 @@ class ContactForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  contacts: state.contacts,
+  contacts: selectors.getContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({

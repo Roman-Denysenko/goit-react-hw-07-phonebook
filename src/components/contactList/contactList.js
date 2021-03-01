@@ -2,17 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import {deleteContact} from '../../redux/operations';
+import { deleteContact } from '../../redux/operations';
+import selectors from '../../redux/selectors';
 
 import s from './ContactList.module.css';
 
 
-const ContactList = ({ contacts, onDelete }) => {
-     const {items,filter} = contacts;
-    const normalizedFilter = filter.toLowerCase();  
-    const visibleContacts = items.filter(el =>
-      el.name.toLowerCase().includes(normalizedFilter),
-  );
+const ContactList = ({ items,visibleContacts, onDelete }) => {
   
   if (items.length === 0) {
     return null;
@@ -55,7 +51,8 @@ ContactList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  contacts: state.contacts,
+  items: selectors.getContactsItems(state),
+  visibleContacts:selectors.getVisibleContacts(state),
 });
 
  const mapDispatchToProps = dispatch => ({
